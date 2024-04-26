@@ -1,8 +1,8 @@
 name: Hello World
 on: [ push ]
 jobs:
-  Hello-World-Job:
-    runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}
+  Build-x86_64:
+    runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}-al2-5.0-large
     steps:
       - uses: actions/checkout@v4
       - run: |
@@ -11,4 +11,23 @@ jobs:
           curl -fLO https://github.com/sbt/sbt/releases/download/v1.9.9/sbt-1.9.9.zip
           unzip sbt-1.9.9.zip
           ./sbt/bin/sbt nativeLink
-          ./target/scala-3.4.1/cross-build-exercise
+          mv ./target/scala-3.4.1/cross-build-exercise ./target/scala-3.4.1/cross-build-exercise-linux-x86_64
+      - uses: AButler/upload-release-assets@v3.0
+        with:
+          files: "./target/scala-3.4.1/cross-build-exercise-linux-x86_64"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+  Build-aarch64:
+    runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}-arm-3.0-large
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          sudo yum install -y clang llvm clang-libs glibc-static libstdc++ libstdc++-devel libstdc++-static
+          ln -s /lib64/libstdc++.so.6 /lib64/libstdc++.so
+          curl -fLO https://github.com/sbt/sbt/releases/download/v1.9.9/sbt-1.9.9.zip
+          unzip sbt-1.9.9.zip
+          ./sbt/bin/sbt nativeLink
+          mv ./target/scala-3.4.1/cross-build-exercise ./target/scala-3.4.1/cross-build-exercise-linux-aarch64
+      - uses: AButler/upload-release-assets@v3.0
+        with:
+          files: "./target/scala-3.4.1/cross-build-exercise-linux-aarch64"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
