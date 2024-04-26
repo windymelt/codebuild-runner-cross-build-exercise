@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      release-id: ${{ steps.release.outputs.id }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +38,7 @@ jobs:
           mv ./target/scala-3.4.1/cross-build-exercise ./target/scala-3.4.1/cross-build-exercise-linux-x86_64
       - uses: AButler/upload-release-assets@v3.0
         with:
-          release-id: ${{ steps.release.outputs.id }}
+          release-id: ${{ needs.release.outputs.release-id }}
           files: "./target/scala-3.4.1/cross-build-exercise-linux-x86_64"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
