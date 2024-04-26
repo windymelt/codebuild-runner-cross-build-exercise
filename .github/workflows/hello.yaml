@@ -4,4 +4,7 @@ jobs:
   Hello-World-Job:
     runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-      - run: sbt --version
+      - run: |
+          curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x86_64-pc-linux.gz | gzip -d > cs && chmod +x cs && ./cs setup
+          ./cs install sbt
+          sbt --version
