@@ -4,6 +4,7 @@ jobs:
   Hello-World-Job:
     runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
+      - uses: actions/checkout@v4
       - run: |
           sudo yum install -y clang llvm
           curl -fLO https://github.com/sbt/sbt/releases/download/v1.9.9/sbt-1.9.9.zip
