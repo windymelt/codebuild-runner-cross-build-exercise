@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          sudo yum install -y clang llvm clang-libs glibc-static libstdc++-devel
+          sudo yum install -y clang llvm clang-libs glibc-static libstdc++ libstdc++-devel
           curl -fLO https://github.com/sbt/sbt/releases/download/v1.9.9/sbt-1.9.9.zip
           unzip sbt-1.9.9.zip
           ./sbt/bin/sbt nativeLink
