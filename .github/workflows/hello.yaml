@@ -13,6 +13,7 @@ jobs:
         id: release
         uses: softprops/action-gh-release@v2
         with:
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           body: |
             This is a release
 
