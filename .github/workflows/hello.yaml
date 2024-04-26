@@ -5,6 +5,6 @@ jobs:
     runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - run: |
-          curl -fL https://github.com/VirtusLab/coursier-m1/releases/latest/download/cs-aarch64-pc-linux.gz | gzip -d > cs && chmod +x cs && ./cs setup
-          ./cs install sbt
-          sbt --version
+          curl -fLO https://github.com/sbt/sbt/releases/download/v1.9.9/sbt-1.9.9.zip
+          unzip sbt-1.9.9.zip
+          ./sbt/bin/sbt --version
