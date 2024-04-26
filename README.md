@@ -1,8 +1,10 @@
-## sbt project compiled with Scala 3
+## Cross-compiling Scala native code with AWS CodeBuild
 
-### Usage
+This repository contains a sample project that demonstrates how to cross-compile Scala native code with AWS CodeBuild.
 
-This is a normal sbt project. You can compile code with `sbt compile`, run it with `sbt run`, and `sbt console` will start a Scala 3 REPL.
+The project is a simple Scala application that uses the [Scala Native](http://www.scala-native.org/) compiler to
+generate a native executable.
 
-For more information on the sbt-dotty plugin, see the
-[scala3-example-project](https://github.com/scala/scala3-example-project/blob/main/README.md).
+You should prepare CodeBuild project referring to the official documentation.
+
+https://docs.aws.amazon.com/codebuild/latest/userguide/action-runner.html
