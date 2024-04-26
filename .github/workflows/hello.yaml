@@ -36,7 +36,7 @@ jobs:
           mv ./target/scala-3.4.1/cross-build-exercise ./target/scala-3.4.1/cross-build-exercise-linux-x86_64
       - uses: AButler/upload-release-assets@v3.0
         with:
-          id: ${{ steps.release.outputs.id }}
+          release-id: ${{ steps.release.outputs.id }}
           files: "./target/scala-3.4.1/cross-build-exercise-linux-x86_64"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -57,6 +57,6 @@ jobs:
           mv ./target/scala-3.4.1/cross-build-exercise ./target/scala-3.4.1/cross-build-exercise-linux-aarch64
       - uses: AButler/upload-release-assets@v3.0
         with:
-          id: ${{ steps.release.outputs.id }}
+          release-id: ${{ steps.release.outputs.id }}
           files: "./target/scala-3.4.1/cross-build-exercise-linux-aarch64"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
