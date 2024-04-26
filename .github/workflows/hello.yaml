@@ -7,4 +7,6 @@ jobs:
       - run: |
           curl -fLO https://github.com/sbt/sbt/releases/download/v1.9.9/sbt-1.9.9.zip
           unzip sbt-1.9.9.zip
+          mkdir /tmp/.sbt
+          ln -s ~/.sbt/ /tmp/.sbt
           ./sbt/bin/sbt --version
