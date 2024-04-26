@@ -1,7 +1,21 @@
 name: Hello World
 on: [ push ]
 jobs:
-  Build-x86_64:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Release
+        id: release
+        uses: softprops/action-gh-release@v2
+        with:
+          body: |
+            This is a release
+
+  build-x86_64:
+    needs:
+      - release
     runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}-al2-5.0-large
     steps:
       - uses: actions/checkout@v4
@@ -14,9 +28,13 @@ jobs:
           mv ./target/scala-3.4.1/cross-build-exercise ./target/scala-3.4.1/cross-build-exercise-linux-x86_64
       - uses: AButler/upload-release-assets@v3.0
         with:
+          id: ${{ steps.release.outputs.id }}
           files: "./target/scala-3.4.1/cross-build-exercise-linux-x86_64"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-  Build-aarch64:
+
+  build-aarch64:
+    needs:
+      - release
     runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}-arm-3.0-large
     steps:
       - uses: actions/checkout@v4
@@ -29,5 +47,6 @@ jobs:
           mv ./target/scala-3.4.1/cross-build-exercise ./target/scala-3.4.1/cross-build-exercise-linux-aarch64
       - uses: AButler/upload-release-assets@v3.0
         with:
+          id: ${{ steps.release.outputs.id }}
           files: "./target/scala-3.4.1/cross-build-exercise-linux-aarch64"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
