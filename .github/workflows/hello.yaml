@@ -5,6 +5,8 @@ jobs:
     runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - run: |
+          sudo yum install -y clang llvm
           curl -fLO https://github.com/sbt/sbt/releases/download/v1.9.9/sbt-1.9.9.zip
           unzip sbt-1.9.9.zip
-          ./sbt/bin/sbt --version
+          ./sbt/bin/sbt nativeLink
+          ./target/scala-3.4.1/cross-build-exercise
