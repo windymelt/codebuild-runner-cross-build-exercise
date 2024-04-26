@@ -6,6 +6,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,6 +20,8 @@ jobs:
             This is a release
 
   build-x86_64:
+    permissions:
+      contents: write
     needs:
       - release
     runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}-al2-5.0-large
@@ -37,6 +41,8 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   build-aarch64:
+    permissions:
+      contents: write
     needs:
       - release
     runs-on: codebuild-codebuild-runner-cross-build-exer-${{ github.run_id }}-${{ github.run_attempt }}-arm-3.0-large
