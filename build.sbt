@@ -19,7 +19,7 @@ lazy val root = project
     // defaults set with common options shown
     nativeConfig ~= { c =>
       c.withLTO(LTO.none) // thin
-        .withMode(Mode.debug) // releaseFast
+        .withMode(Mode.releaseSize)
         .withGC(GC.immix) // commix
         .withLinkingOptions(Seq("-static"))
     },
